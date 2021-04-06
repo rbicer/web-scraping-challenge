@@ -1,11 +1,11 @@
-# Import Splinter, BeautifulSoup, and Pandas
+# Import Splinter
 from splinter import Browser
-from bs4 import BeautifulSoup as soup
+from bs4 import BeautifulSoup as bs4
 import pandas as pd
 import datetime as dt
 
 
-def scrape_all():
+def scrape():
     # Initiate headless driver for deployment
     browser = Browser("chrome", executable_path="chromedriver", headless=True)
 
