@@ -1,7 +1,7 @@
-# Import Splinter
+# Import 
+import pandas as pd
 from splinter import Browser
 from bs4 import BeautifulSoup as bs4
-import pandas as pd
 import datetime as dt
 
 
