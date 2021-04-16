@@ -1,14 +1,15 @@
 # Import 
 import pandas as pd
 from splinter import Browser
-from bs4 import BeautifulSoup as bs4
+from bs4 import BeautifulSoup as soup
 import datetime as dt
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 def scrape():
-    # Initiate headless driver for deployment
-    browser = Browser("chrome", executable_path="chromedriver", headless=True)
-
+    # #Path and Splinter Initilization
+    executable_path = {'executable_path': ChromeDriverManager().install()}
+    browser = Browser('chrome', **executable_path)
     news_title, news_paragraph = mars_news(browser)
 
     # Run all scraping functions and store results in a dictionary
@@ -82,19 +83,21 @@ def featured_image(browser):
 
 def mars_facts():
     # Add try/except for error handling
-    try:
-        # use 'read_html' to scrape the facts table into a dataframe
-        df = pd.read_html('http://space-facts.com/mars/')[0]
-
-    except BaseException:
-        return None
-
+    print('before the try')
+    #try:
+    # use 'read_html' to scrape the facts table into a dataframe
+    facts_df = pd.read_html('http://space-facts.com/mars/')[0]
     # assign columns and set index of dataframe
-    df.columns = ['Description', 'Mars']
-    df.set_index('Description', inplace=True)
-
+    facts_df.columns = ['Description', 'Mars']
+    facts_df.set_index('Description', inplace=True)
+    facts_html=facts_df.to_html(classes="table table-striped")
+    print(facts_html)
     # Convert dataframe into HTML format, add bootstrap
-    return df.to_html(classes="table table-striped")
+    return facts_html
+    #except BaseException:
+        #return None
+
+
 
 
 def hemispheres(browser):
